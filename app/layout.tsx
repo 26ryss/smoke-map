@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from 'react';
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
@@ -25,7 +26,9 @@ export default function RootLayout({
       </head>
       <body className={notoSansJP.className}>
         <MantineProvider>
-          <Header />
+          <Suspense>
+            <Header />
+          </Suspense>
           {children}
         </MantineProvider>
       </body>

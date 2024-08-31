@@ -1,3 +1,5 @@
+'use client';
+
 import shops from "@/app/lib/shop-data";
 import clsx from 'clsx';
 import Image from 'next/image';

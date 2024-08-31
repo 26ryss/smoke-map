@@ -1,4 +1,6 @@
 'use client';
+
+import { Suspense } from 'react';
 import { TextInput, ActionIcon, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconSearch } from '@tabler/icons-react';
@@ -42,36 +44,38 @@ export default function SearchBar() {
 
   return (
     <div>
-      <form onSubmit={form.onSubmit((e) => handleSearch(e.place))} className="flex flex-row">
-        <TextInput
-          radius="xs"
-          placeholder="エリア・駅"
-          key={form.key('place')}
-          styles={{
-            input: {
-              borderColor: `${colors.secondary}`, // 任意の色に変更
-              '&:focus': {
-                borderColor: `${colors.primary}`, // フォーカス時の色も変更
+      <Suspense>
+        <form onSubmit={form.onSubmit((e) => handleSearch(e.place))} className="flex flex-row">
+          <TextInput
+            radius="xs"
+            placeholder="エリア・駅"
+            key={form.key('place')}
+            styles={{
+              input: {
+                borderColor: `${colors.secondary}`, // 任意の色に変更
+                '&:focus': {
+                  borderColor: `${colors.primary}`, // フォーカス時の色も変更
+                },
               },
-            },
-          }}
-          {...form.getInputProps('place')}
-          onChange={(e) => {
-            form.getInputProps('place').onChange(e);
-            handleInputChange(e.currentTarget.value);
-          }}
-        />
-        <ActionIcon
-          variant="gradient"
-          size={36}
-          radius="xs"
-          aria-label="Gradient action icon"
-          gradient={{ from: `${colors.primary}`, to: `${colors.secondary}`, deg: 90 }}
-          type="submit"
-        >
-          <IconSearch style={{ width: '70%', height: '70%' }} stroke={2} />
-        </ActionIcon>
-      </form>
+            }}
+            {...form.getInputProps('place')}
+            onChange={(e) => {
+              form.getInputProps('place').onChange(e);
+              handleInputChange(e.currentTarget.value);
+            }}
+          />
+          <ActionIcon
+            variant="gradient"
+            size={36}
+            radius="xs"
+            aria-label="Gradient action icon"
+            gradient={{ from: `${colors.primary}`, to: `${colors.secondary}`, deg: 90 }}
+            type="submit"
+          >
+            <IconSearch style={{ width: '70%', height: '70%' }} stroke={2} />
+          </ActionIcon>
+        </form>
+      </Suspense>
     </div>
   );
 }
