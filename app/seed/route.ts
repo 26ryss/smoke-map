@@ -23,7 +23,7 @@ async function seedUsers() {
     users.map(async (user) => {
       const hashedPassword = await bcrypt.hash(user.password, 10);
       return client.sql`
-        INSERT INTO users (display_name, name, email, pa)
+        INSERT INTO users (display_name, name, email, password)
         VALUES (${user.display_name}, ${user.name}, ${user.email}, ${hashedPassword})
         ON CONFLICT (id) DO NOTHING;
       `
@@ -56,7 +56,7 @@ async function seedAreas() {
   return insertedAreas;
 }
 
-export async function seedStores() {
+async function seedStores() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await client.sql`
@@ -84,19 +84,19 @@ export async function seedStores() {
   return insertedStores;
 }
 
-export async function seedLikes() {
+async function seedLikes() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await client.sql`
     CREATE TABLE IF NOT EXISTS likes (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       user_id UUID NOT NULL,
-      store_id INT NOT NULL,
+      store_id INT NOT NULL
       );
     `;
 }
 
-export async function seedVotes() {
+async function seedVotes() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await client.sql`
@@ -109,7 +109,7 @@ export async function seedVotes() {
     `;
 }
 
-export async function seedImages() {
+async function seedImages() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await client.sql`
@@ -121,7 +121,7 @@ export async function seedImages() {
     `;
 }
 
-export async function seedReviews() {
+async function seedReviews() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await client.sql`
@@ -136,6 +136,10 @@ export async function seedReviews() {
 }
 
 export async function GET() {
+  return Response.json({
+    message:
+      'Uncomment this file and remove this line. You can delete this file when you are finished.',
+  });
   try {
     await client.sql`BEGIN`;
     await seedUsers();
