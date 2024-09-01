@@ -60,3 +60,29 @@ export async function fetchGeoLocation(area: string){
     throw new Error('Failed to fetch area');
   }
 }
+
+export async function fetchStoreById(id: number) {
+  try {
+    const data = await sql<Store>`
+      SELECT
+        stores.id,
+        stores.name,
+        stores.address,
+        stores.area_id,
+        stores.description,
+        stores.url,
+        stores.eye_catch_url,
+        stores.latitude,
+        stores.longitude
+      FROM stores
+      WHERE stores.id = ${id};
+    `;
+    const store = data.rows.map((store)=>({
+      ...store,
+    }))
+    return store[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch a store');
+  }
+}
