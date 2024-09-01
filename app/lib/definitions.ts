@@ -20,4 +20,6 @@ export type Store = {
   description: string;
   url: string;
   eye_catch_url: string;
+  latitude: string;
+  longitude: string;
 }

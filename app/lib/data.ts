@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { User, Area, Store } from './definitions';
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 4;
 export async function fetchFilteredStores(
   area: string,
   currentPage: number,
@@ -18,6 +18,8 @@ export async function fetchFilteredStores(
         stores.description,
         stores.url,
         stores.eye_catch_url,
+        stores.latitude,
+        stores.longitude,
         areas.name as area_name
       FROM stores JOIN areas ON stores.area_id = areas.id
       WHERE areas.name = ${area}
@@ -40,6 +42,19 @@ export async function fetchStoresPages(area:string){
 
     const totalStores = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
     return totalStores;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch area');
+  }
+}
+
+export async function fetchGeoLocation(area: string){
+  try {
+    const location = await sql`SELECT latitude, longitude
+      FROM areas
+      WHERE name = ${area};
+    `;
+    return location.rows;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch area');

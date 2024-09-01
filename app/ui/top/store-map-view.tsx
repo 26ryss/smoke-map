@@ -51,7 +51,7 @@ export default function StoreMapView() {
           <Pagination totalPages={totalPages} />
         </div>
       </div>
-      <Map points={points} hoverStoreId={hoverStoreId} />
+      <Map stores={stores} hoverStoreId={hoverStoreId} area={area}/>
   </div>
   )
 }
