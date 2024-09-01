@@ -16,7 +16,7 @@ export default function SearchBar() {
 
   function handleSearch(term: string) {
     const params = new URLSearchParams(searchParams);
-    params.set('place', term);
+    params.set('area', term);
     replace(`${pathname}?${params.toString()}`);
   }
 
@@ -26,15 +26,15 @@ export default function SearchBar() {
 
   const form = useForm({
     initialValues: {
-      place: '',
+      area: '',
     },
 
     validate : {
-      place: (value) => {
+      area: (value) => {
         if (!value) {
           return 'エリア・駅を入力してください';
         }
-        if (!places.find((place) => place.name === value)) {
+        if (!places.find((area) => area.name === value)) {
           return 'エリア・駅が見つかりません';
         }
         return null;
@@ -45,11 +45,11 @@ export default function SearchBar() {
   return (
     <div>
       <Suspense>
-        <form onSubmit={form.onSubmit((e) => handleSearch(e.place))} className="flex flex-row">
+        <form onSubmit={form.onSubmit((e) => handleSearch(e.area))} className="flex flex-row">
           <TextInput
             radius="xs"
             placeholder="エリア・駅"
-            key={form.key('place')}
+            key={form.key('area')}
             styles={{
               input: {
                 borderColor: `${colors.secondary}`, // 任意の色に変更
@@ -58,9 +58,9 @@ export default function SearchBar() {
                 },
               },
             }}
-            {...form.getInputProps('place')}
+            {...form.getInputProps('area')}
             onChange={(e) => {
-              form.getInputProps('place').onChange(e);
+              form.getInputProps('area').onChange(e);
               handleInputChange(e.currentTarget.value);
             }}
           />
