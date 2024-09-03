@@ -26,10 +26,10 @@ export default function Header() {
           </div>
         </div>
         <div className="flex items-center">
-          <Link href="#" className="text-sm font-semibold leading-6 text-gray-900 px-4">
+          <Link href="/signup" className="text-sm font-semibold leading-6 text-gray-900 px-4">
               会員登録
           </Link>
-          <Link href="#" className="text-sm font-semibold leading-6 text-gray-900 px-4">
+          <Link href="/login" className="text-sm font-semibold leading-6 text-gray-900 px-4">
               ログイン
           </Link>
         </div>
