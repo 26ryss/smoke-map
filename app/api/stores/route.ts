@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   
   try{
-    const area = searchParams.get('area') || '';
+    const area = searchParams.get('area') || '渋谷';
     const currentPage = Number(searchParams.get('page')) || 1;
     const stores = await fetchFilteredStores(area, currentPage);
     return new Response(JSON.stringify(stores), {

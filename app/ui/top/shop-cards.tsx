@@ -29,7 +29,7 @@ export default function ShopCards({
               <Link href={`/stores/${store.id}`} key={store.id}>
                 <div
                   className={clsx(
-                    'flex flex-row items-center justify-between pl-4 py-4 hover:bg-gray-100',
+                    'flex flex-row items-center justify-between px-4 py-4 hover:bg-gray-100',
                     {
                       'border-t border-gray-200': i !== 0,
                     }
