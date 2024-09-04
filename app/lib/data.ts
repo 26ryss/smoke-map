@@ -67,28 +67,26 @@ export async function fetchGeoLocation(area: string) {
   }
 }
 
-// export async function fetchStoreById(id: number) {
-//   try {
-//     const data = await sql<Store>`
-//       SELECT
-//         stores.id,
-//         stores.name,
-//         stores.address,
-//         stores.area_id,
-//         stores.description,
-//         stores.url,
-//         stores.eye_catch_url,
-//         stores.latitude,
-//         stores.longitude
-//       FROM stores
-//       WHERE stores.id = ${id};
-//     `;
-//     const store = data.rows.map((store)=>({
-//       ...store,
-//     }))
-//     return store[0];
-//   } catch (error) {
-//     console.error('Database Error:', error);
-//     throw new Error('Failed to fetch a store');
-//   }
-// }
+export async function fetchStoreById(id: number){
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('stores')
+    .select(`
+      id,
+      name,
+      address,
+      area_id,
+      description,
+      url,
+      eye_catch_url,
+      latitude,
+      longitude
+    `)
+    .eq('id', id);
+  if (error) {
+    console.error('Supabase error:', error);
+    throw new Error('Failed to fetch store');
+  } else {
+    return data[0];
+  }
+}
