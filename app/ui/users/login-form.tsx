@@ -1,10 +1,9 @@
 import { Button } from '@/app/ui/button';
-
+import { signInAction } from '@/app/lib/actions';
 
 export default function Form(){
-
   return (
-    <form>
+    <form action={signInAction}>
       <div className="bg-gray-50 p-4 md:px-16 md:py-8">
         <div className="mb-4">
           <h1 className="flex text-xl font-bold justify-center">ログイン</h1>
