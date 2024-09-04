@@ -6,8 +6,8 @@ export async function GET(request: NextRequest) {
   
   try{
     const area = searchParams.get('area') || '';
-    const stores = await fetchGeoLocation(area);
-    return new Response(JSON.stringify(stores), {
+    const data = await fetchGeoLocation(area);
+    return new Response(JSON.stringify(data), {
       status: 200,
     })
   } catch (error) {

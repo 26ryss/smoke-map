@@ -1,17 +1,10 @@
-import { createUser, State } from '@/app/lib/actions';
-import { useActionState } from 'react';
-import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { signIn } from '@/auth';
 
 
 export default function Form(){
 
   return (
-    <form action={async (formData) => {
-      'use server'
-      await signIn("credentials", formData);
-    }}>
+    <form>
       <div className="bg-gray-50 p-4 md:px-16 md:py-8">
         <div className="mb-4">
           <h1 className="flex text-xl font-bold justify-center">ログイン</h1>

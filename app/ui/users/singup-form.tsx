@@ -1,16 +1,11 @@
 "use client";
 
-import { createUser, State } from '@/app/lib/actions';
-import { useActionState } from 'react';
-import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 
 export default function Form(){
-  const initialState: State = { message: null, errors: {}};
-  const [state, formAction] = useActionState(createUser, initialState);
 
   return (
-    <form action={formAction}>
+    <form >
       <div className="bg-gray-50 p-4 md:px-16 md:py-8">
         <div className="mb-4">
           <h1 className="flex text-xl font-bold justify-center">新規登録</h1>
