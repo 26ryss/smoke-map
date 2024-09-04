@@ -1,8 +1,16 @@
 import Image from 'next/image';
 import SearchBar from '@/app/ui/head/search-bar';
 import Link from 'next/link';
+import { createClient } from '@/utils/supabase/server';
+import { signOutAction } from '@/app/lib/actions';
 
-export default function Header() {
+export default async function Header() {
+  const supabase = createClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error(error);
+  }
+  const accountUrl = user ? `/account/${user.id}` : '/login';
 
   return (
     <header className=" text-white border-b-2 border-slate-100">
@@ -25,14 +33,27 @@ export default function Header() {
             <SearchBar />
           </div>
         </div>
-        <div className="flex items-center">
-          <Link href="/signup" className="text-sm font-semibold leading-6 text-gray-900 px-4">
+        {!user ? (
+          <div className="flex items-center">
+            <Link href="/signup" className="text-sm font-semibold leading-6 text-gray-900 px-4">
               会員登録
-          </Link>
-          <Link href="/login" className="text-sm font-semibold leading-6 text-gray-900 px-4">
+            </Link>
+            <Link href="/login" className="text-sm font-semibold leading-6 text-gray-900 px-4">
               ログイン
-          </Link>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex items-center">
+            <Link href={accountUrl} className="text-sm font-semibold leading-6 text-gray-900 px-4">
+              マイページ
+            </Link>
+            <form action={signOutAction}>
+              <button className="text-sm font-semibold leading-6 text-gray-900 px-4">
+                ログアウト
+              </button>
+            </form>
         </div>
+        )}
       </nav>
     </header>
   );
