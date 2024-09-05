@@ -16,7 +16,6 @@ export default function StoreMapView() {
   const [hoverStoreId, setHoverStoreId] = useState<number | null>(null);
   const [stores, setStores] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-  const points = [{lat: 35.662725, lng: 139.700355}];
 
   useEffect(() => {
     const fetchStores = async () => {
