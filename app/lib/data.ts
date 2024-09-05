@@ -90,3 +90,21 @@ export async function fetchStoreById(id: number){
     return data[0];
   }
 }
+
+export async function fetchReviewScoreAndCount(id: number) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('reviews')
+    .select(`
+      score.avg(),
+      score.count()
+    `)
+      .eq('store_id', id);
+  if (error) {
+    // console.error('Supabase error:', error);
+    console.log('Supabase error:', error);
+    throw new Error('Failed to fetch reviews');
+  } else {
+    return data;
+  }
+}
