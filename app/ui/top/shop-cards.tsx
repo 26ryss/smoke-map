@@ -5,8 +5,15 @@ import Image from 'next/image';
 import ReviewScore from "@/app/ui/top/review-score";
 import SmokeVote from "@/app/ui/top/smoke-vote";
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { ScrollArea } from '@mantine/core';
-import { Store } from '@/app/lib/definitions'
+import { Store } from '@/app/lib/definitions';
+import { fetchReviewScoreAndCount } from '@/app/lib/data';
+
+type ReviewData = {
+  avg: number;
+  count: number;
+}
 
 export default function ShopCards({
   setHoverStoreId,
@@ -15,16 +22,31 @@ export default function ShopCards({
   setHoverStoreId: (id:number | null) => void
   stores: Store[]
 }) {
+  const [reviews, setReviews] = useState<Record<number, ReviewData | undefined>>({});
   const reviewScore = 4.5;
   const commentCount = 121;
   const smokeCount = 30;
   const nonSmokeCount = 0;
+
+  useEffect(() => {
+    async function getReviews() {
+      const storeReviews: Record<number, ReviewData> = {};
+      for (const store of stores) {
+        const data = await fetchReviewScoreAndCount(store.id);
+        const { avg, count } = data[0];
+        storeReviews[store.id] = { avg, count };
+      }
+      setReviews(storeReviews);
+    }
+    getReviews();
+  }, [stores]);
 
   return (
       <div className="flex grow flex-col justify-between border">
         <div className="bg-white">
           <ScrollArea h={480}>
           {stores.map((store, i) =>{
+            const review = reviews[store.id];
             return (
               <Link href={`/stores/${store.id}`} key={store.id}>
                 <div
@@ -53,7 +75,7 @@ export default function ShopCards({
                         {store.address}
                       </p>
                       <div className="mb-1">
-                        <ReviewScore reviewScore={reviewScore} reviewCount={commentCount} />
+                        <ReviewScore reviewScore={review? review.avg: 0} reviewCount={review? review.count: 0} />
                       </div>
                       <SmokeVote smokeCount={smokeCount} nonSmokeCount={nonSmokeCount} />
                     </div>

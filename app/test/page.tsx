@@ -1,7 +1,7 @@
-import { fetchGeoLocation } from '@/app/lib/data';
+import { fetchReviewScoreAndCount } from '@/app/lib/data';
 
 export default async function Page() {
-  const data = await fetchGeoLocation('渋谷');
+  // const data = await fetchReviewScoreAndCount(1);
   return (
     <div>
       <h1>Page</h1>
