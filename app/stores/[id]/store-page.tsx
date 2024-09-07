@@ -11,13 +11,8 @@ import { Store } from '@/app/lib/definitions';
 import { type User } from '@supabase/supabase-js';
 import ReviewModal from "@/app/ui/stores/review-modal";
 import SmokeVoteModal from "@/app/ui/stores/smoke-vote-modal";
-import { SmokeVoteData } from "@/app/lib/definitions";
+import { VoteData, ReviewData } from "@/app/lib/definitions";
 import { Skeleton } from "@/components/ui/skeleton";
-
-type ReviewData = {
-  avg: number;
-  count: number;
-}
 
 export default function StorePage({ 
   storeId,
@@ -26,7 +21,7 @@ export default function StorePage({
 }: {
     storeId: string
     user: User | null;
-    smokeVoteData: SmokeVoteData;
+    smokeVoteData: VoteData;
   }){
   const id = parseInt(storeId, 10);
   const [store, setStore] = useState<Store | null>(null);
