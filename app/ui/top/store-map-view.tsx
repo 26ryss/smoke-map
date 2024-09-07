@@ -1,56 +1,39 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 import ShopCards from "@/app/ui/top/shop-cards";
 import Map from "@/app/ui/top/map";
 import Pagination from "@/app/ui/top/pagination";
 
-export default function StoreMapView() {
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const area = params.get('area') || '渋谷';
-  const page = Number(params.get('page')) || 1;
+import { Store, ReviewData, VoteData } from "@/app/lib/definitions";
 
+export default function StoreMapView({
+  area,
+  stores,
+  totalPages,
+  reviews,
+  votes,
+} : {
+  area: string;
+  stores: Store[];
+  totalPages: number;
+  reviews: { [key: number]: ReviewData };
+  votes: { [key: number]: VoteData };
+}) {
   const [hoverStoreId, setHoverStoreId] = useState<number | null>(null);
-  const [stores, setStores] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
-
-  useEffect(() => {
-    const fetchStores = async () => {
-      try{
-      const response = await fetch(`/api/stores?area=${area}&page=${page}`);
-      const stores = await response.json();
-      setStores(stores);
-      } catch (error) {
-        console.error('API Error:', error);
-      }
-    };
-
-    const fetchTotalPages = async () => {
-      try{
-        const response = await fetch(`/api/total-pages?area=${area}`);
-        const totalPages = await response.json();
-        setTotalPages(totalPages);
-      } catch (error) {
-        console.error('API Error:', error);
-      }
-    };
-
-    fetchStores();
-    fetchTotalPages();
-  }, [area, page]);
 
   return(
     <div className="flex flex-row mx-14 my-8">
-      <div className="w-[50rem]">
-        <ShopCards setHoverStoreId={setHoverStoreId} stores={stores}/>
+      <div className="w-[400px]">
+        <ShopCards setHoverStoreId={setHoverStoreId} stores={stores} reviews={reviews} votes={votes}/>
         <div className="mt-5 flex w-full justify-center">
           <Pagination totalPages={totalPages} />
         </div>
       </div>
-      <Map stores={stores} hoverStoreId={hoverStoreId} area={area}/>
+      <div className="grow">
+        <Map stores={stores} hoverStoreId={hoverStoreId} area={area}/>
+      </div>
   </div>
   )
 }

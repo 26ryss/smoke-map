@@ -24,7 +24,12 @@ export type Store = {
   longitude: number;
 }
 
-export type SmokeVoteData = {
+export type VoteData = {
   isAbleToSmoke: number;
   isNotAbleToSmoke: number;
+}
+
+export type ReviewData = {
+  avg: number;
+  count: number;
 }

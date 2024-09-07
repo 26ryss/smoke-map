@@ -31,7 +31,6 @@ export async function fetchFilteredStores (
     console.error('Supabase error:', error);
     throw new Error('Failed to fetch stores');
   } else {
-    console.log(data)
     return data;
   }
 }

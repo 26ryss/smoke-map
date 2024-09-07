@@ -2,7 +2,7 @@
 import { MdEdit } from "react-icons/md";
 import { LuCigarette, LuCigaretteOff } from "react-icons/lu";
 import { type User } from '@supabase/supabase-js';
-import { SmokeVoteData } from "@/app/lib/definitions";
+import { VoteData } from "@/app/lib/definitions";
 
 export default function ActionPanel({
   setIsReviewModalOpen,
@@ -13,7 +13,7 @@ export default function ActionPanel({
   setIsReviewModalOpen: (isOpen: boolean) => void;
   setIsSmokeVoteModalOpen: (isOpen: boolean) => void;
   user: User | null;
-  smokeVoteData: SmokeVoteData;
+  smokeVoteData: VoteData;
 }) {
   return (
     <div className="bg-stone-200 p-4 flex">

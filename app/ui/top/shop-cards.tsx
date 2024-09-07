@@ -5,57 +5,27 @@ import Image from 'next/image';
 import ReviewScore from "@/app/ui/top/review-score";
 import SmokeVote from "@/app/ui/top/smoke-vote";
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import { ScrollArea } from '@mantine/core';
-import { Store } from '@/app/lib/definitions';
-import { fetchReviewScoreAndCount } from '@/app/lib/data';
-import { fetchSmokeVote } from '@/app/lib/data';
-
-type ReviewData = {
-  avg: number;
-  count: number;
-}
-
-type SmokeVoteData = {
-  isAbleToSmoke: number;
-  isNotAbleToSmoke: number;
-}
+import { Store, VoteData, ReviewData } from '@/app/lib/definitions';
 
 export default function ShopCards({
   setHoverStoreId,
-  stores
+  stores,
+  reviews,
+  votes,
 }:{
   setHoverStoreId: (id:number | null) => void
-  stores: Store[]
+  stores: Store[],
+  reviews: { [key: number]: ReviewData },
+  votes: { [key: number]: VoteData },
 }) {
-  const [reviews, setReviews] = useState<Record<number, ReviewData | undefined>>({});
-  const [smokeVotes, setSmokeVotes] = useState<Record<number, SmokeVoteData | undefined>>({});
-
-  useEffect(() => {
-    async function getReviews() {
-      const storeReviews: Record<number, ReviewData> = {};
-      const storeSmokeVotes: Record<number, SmokeVoteData> = {};
-      for (const store of stores) {
-        const data = await fetchReviewScoreAndCount(store.id);
-        const smokeData = await fetchSmokeVote(store.id);
-        const { avg, count } = data[0];
-        const { isAbleToSmoke, isNotAbleToSmoke } = smokeData;
-        storeReviews[store.id] = { avg, count };
-        storeSmokeVotes[store.id] = { isAbleToSmoke, isNotAbleToSmoke };
-      }
-      setReviews(storeReviews);
-      setSmokeVotes(storeSmokeVotes);
-    }
-    getReviews();
-  }, [stores]);
-
   return (
-      <div className="flex grow flex-col justify-between border">
+      <div className="flex grow flex-col justify-between border w-full">
         <div className="bg-white">
           <ScrollArea h={480}>
           {stores.map((store, i) =>{
             const review = reviews[store.id];
-            const smokeVote = smokeVotes[store.id];
+            const smokeVote = votes[store.id];
             return (
               <Link href={`/stores/${store.id}`} key={store.id}>
                 <div
