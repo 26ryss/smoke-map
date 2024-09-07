@@ -7,40 +7,19 @@ import ShopCards from "@/app/ui/top/shop-cards";
 import Map from "@/app/ui/top/map";
 import Pagination from "@/app/ui/top/pagination";
 
-export default function StoreMapView() {
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const area = params.get('area') || '渋谷';
-  const page = Number(params.get('page')) || 1;
+import { Store } from "@/app/lib/definitions";
 
+export default function StoreMapView({
+  area,
+  stores,
+  totalPages,
+} : {
+  area: string;
+  stores: Store[];
+  totalPages: number;
+}) {
   const [hoverStoreId, setHoverStoreId] = useState<number | null>(null);
-  const [stores, setStores] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    const fetchStores = async () => {
-      try{
-      const response = await fetch(`/api/stores?area=${area}&page=${page}`);
-      const stores = await response.json();
-      setStores(stores);
-      } catch (error) {
-        console.error('API Error:', error);
-      }
-    };
-
-    const fetchTotalPages = async () => {
-      try{
-        const response = await fetch(`/api/total-pages?area=${area}`);
-        const totalPages = await response.json();
-        setTotalPages(totalPages);
-      } catch (error) {
-        console.error('API Error:', error);
-      }
-    };
-
-    fetchStores();
-    fetchTotalPages();
-  }, [area, page]);
 
   return(
     <div className="flex flex-row mx-14 my-8">
