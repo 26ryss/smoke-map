@@ -19,7 +19,7 @@ export default function ReviewScore({
           <IoStarSharp
             key={i}
             size={18}
-            color={i+1 < reviewScore ? colors.star : colors.gray200}
+            color={i < reviewScore ? colors.star : colors.gray200}
           />
         ))}
       </div>

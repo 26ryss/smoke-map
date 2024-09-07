@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
+import { createReview } from "@/app/lib/actions";
 
 
 const reviewSchema = z.object({
@@ -55,7 +56,7 @@ export default function ReviewModal({
           >
             <IoIosClose size={30}/>
           </button>
-          <ReviewForm user={user} storeId={storeId} />
+          <ReviewForm setIsOpen={setIsOpen} user={user} storeId={storeId} />
         </div>
         
       </div>
@@ -68,9 +69,11 @@ export default function ReviewModal({
 }
 
 export function ReviewForm({
+  setIsOpen,
   user,
   storeId,
   } : {
+    setIsOpen: (isOpen: boolean) => void;
     user: User | null;
     storeId: number;
   }) {
@@ -82,8 +85,23 @@ export function ReviewForm({
     }
   })
 
-  function onSubmit(values: z.infer<typeof reviewSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof reviewSchema>) {
+    if (!user){
+      return;
+    }
+    if (values.comment === ""){
+      values.comment = undefined;
+    }
+    const { error } = await createReview({
+      uid: user.id, 
+      storeId: storeId,
+      score: values.score,
+      comment: values.comment,
+    }) || {};
+
+    if (!error) {
+      setIsOpen(false);
+    }
   }
 
   return (

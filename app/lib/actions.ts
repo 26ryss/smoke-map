@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from '@/utils/utils';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
  
 const FormSchema = z.object({
   id: z.string(),
@@ -70,4 +71,36 @@ export const signOutAction = async() => {
   const supabase = createClient();
   await supabase.auth.signOut();
   return redirect('/');
+}
+
+export async function createReview({
+  uid,
+  storeId,
+  score,
+  comment,
+}:{
+  uid: string;
+  storeId: number;
+  score: number;
+  comment: string | undefined;
+}) {
+  const supabase = createClient();
+  const commentValue = comment ? comment : null;
+  const { error } = await supabase
+    .from('reviews')
+    .insert({
+      store_id: storeId,
+      user_id: uid,
+      score: score,
+      comment: commentValue,
+    });
+  if (error) {
+    console.error(error);
+    return { 
+      error: "レビューの投稿に失敗しました" 
+    };
+  }
+
+  revalidatePath(`/stores/${storeId}`);
+  redirect(`/stores/${storeId}`);
 }
