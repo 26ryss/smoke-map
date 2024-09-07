@@ -19,9 +19,16 @@ import { Textarea } from "@/components/ui/textarea"
 
 
 const reviewSchema = z.object({
-  score: z.number({
-    required_error: "点数を入力してください",
-  }),
+  score: z
+    .number({
+      required_error: "点数を入力してください",
+    })
+    .gt(0, {
+      message: "1-5の範囲で入力してください",
+    })
+    .lt(6, {
+      message: "1-5の範囲で入力してください",
+    }),
   comment: z.string().optional(),
 })
 
@@ -78,7 +85,10 @@ export function ReviewForm() {
             <FormItem>
               <FormLabel>点数</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input 
+                  placeholder="" 
+                  value={field.value ?? ''}
+                  onChange={(e) => field.onChange(Number(e.target.value))} />
               </FormControl>
               <FormMessage />
             </FormItem>
