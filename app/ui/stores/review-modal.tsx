@@ -4,6 +4,7 @@ import { IoIosClose } from "react-icons/io";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
+import { type User } from '@supabase/supabase-js';
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -35,9 +36,13 @@ const reviewSchema = z.object({
 export default function ReviewModal({
   isOpen,
   setIsOpen,
+  user,
+  storeId,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  user: User | null;
+  storeId: number;
 }) {
   return(
   <>
@@ -50,7 +55,7 @@ export default function ReviewModal({
           >
             <IoIosClose size={30}/>
           </button>
-          <ReviewForm />
+          <ReviewForm user={user} storeId={storeId} />
         </div>
         
       </div>
@@ -62,7 +67,13 @@ export default function ReviewModal({
   )
 }
 
-export function ReviewForm() {
+export function ReviewForm({
+  user,
+  storeId,
+  } : {
+    user: User | null;
+    storeId: number;
+  }) {
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
