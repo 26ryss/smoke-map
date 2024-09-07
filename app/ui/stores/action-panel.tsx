@@ -2,21 +2,26 @@
 import { MdEdit } from "react-icons/md";
 import { LuCigarette, LuCigaretteOff } from "react-icons/lu";
 import { type User } from '@supabase/supabase-js';
+import { SmokeVoteData } from "@/app/lib/definitions";
 
 export default function ActionPanel({
-  setIsOpen,
+  setIsReviewModalOpen,
+  setIsSmokeVoteModalOpen,
   user,
+  smokeVoteData,
 } : {
-  setIsOpen: (isOpen: boolean) => void;
+  setIsReviewModalOpen: (isOpen: boolean) => void;
+  setIsSmokeVoteModalOpen: (isOpen: boolean) => void;
   user: User | null;
+  smokeVoteData: SmokeVoteData;
 }) {
   return (
     <div className="bg-stone-200 p-4 flex">
-      <AbleToSmokeButton />
+      <AbleToSmokeButton count={smokeVoteData.isAbleToSmoke} setIsOpen={setIsSmokeVoteModalOpen}/>
       <div className="ml-2"/>
-      <NotAbleToSmokeButton /> 
+      <NotAbleToSmokeButton count={smokeVoteData.isNotAbleToSmoke} setIsOpen={setIsSmokeVoteModalOpen} /> 
       <div className="ml-2"/>
-      <CreateReviewButton setIsOpen={setIsOpen} user={user}/>
+      <CreateReviewButton setIsOpen={setIsReviewModalOpen} user={user}/>
     </div>
   )
 }
@@ -28,7 +33,6 @@ export function CreateReviewButton({
   setIsOpen: (isOpen: boolean) => void;
   user: User | null;
 }) {
-  console.log(user);
   return (
     <button 
       className="flex items-center bg-white px-3 py-1 rounded"
@@ -46,18 +50,38 @@ export function CreateReviewButton({
   )
 }
 
-export function AbleToSmokeButton() {
+export function AbleToSmokeButton({
+  count,
+  setIsOpen,
+}:{
+  count:number;
+  setIsOpen:(isOpen:boolean) => void;
+}) {
   return (
-    <button className="flex items-center bg-white px-3 py-1 rounded">
-    <LuCigarette size={20} color="#1e293b"/>
-  </button>
+    <button 
+      className="flex items-center bg-white px-3 py-1 rounded"
+      onClick={() => setIsOpen(true)}
+    >
+      <LuCigarette size={20} color="#1e293b"/>
+      <p className="font-semibold pl-2">{count}</p>
+    </button>
   )
 }
 
-export function NotAbleToSmokeButton() {
+export function NotAbleToSmokeButton({
+  count,
+  setIsOpen,
+}:{
+  count:number;
+  setIsOpen:(isOpen:boolean) => void;
+}) {
   return (
-    <button className="flex items-center bg-white px-3 py-1 rounded">
+    <button 
+      className="flex items-center bg-white px-3 py-1 rounded"
+      onClick={() => setIsOpen(true)}  
+    >
     <LuCigaretteOff size={20} color="#1e293b"/>
+    <p className="font-semibold pl-2">{count}</p>
   </button>
   )
 }
