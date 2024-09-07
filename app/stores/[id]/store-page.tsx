@@ -12,6 +12,7 @@ import { type User } from '@supabase/supabase-js';
 import ReviewModal from "@/app/ui/stores/review-modal";
 import SmokeVoteModal from "@/app/ui/stores/smoke-vote-modal";
 import { SmokeVoteData } from "@/app/lib/definitions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type ReviewData = {
   avg: number;
@@ -43,28 +44,44 @@ export default function StorePage({
     fetchData();
   }, [id]);
 
-  if (!store || !review) {
-    return <div>Loading...</div>
-  }
-
   return (
     <div className="py-10 px-36">
       <div className="flex flex-row justify-between">
-        <h1 className="text-3xl font-bold leading-6 text-gray-900 pb-3">{store.name}</h1>
+        {store ? (
+          <h1 className="text-3xl font-bold leading-6 text-gray-900 pb-3">{store.name}</h1>
+          ):(
+          <Skeleton className="h-[40px] w-[400px] pb-3" />
+          )}
         <ActionPanel setIsReviewModalOpen={setIsReviewModalOpen} setIsSmokeVoteModalOpen={setIsSmokeVoteModalOpen} user={user} smokeVoteData={smokeVoteData} />
       </div>
       
-      <div className="pb-10">
-        <ReviewScore reviewScore={review.avg} reviewCount={review.count}/>
-        <div className="pt-1 flex flex-row items-center">
-          <FaMapMarkerAlt color={colors.gray700}/>
-          <p className="text-sm text-gray-600 pl-1">{store.address}</p>
+      {(store && review) ? (
+        <div className="pb-10">
+          <ReviewScore reviewScore={review.avg} reviewCount={review.count}/>
+          <div className="pt-1 flex flex-row items-center">
+            <FaMapMarkerAlt color={colors.gray700}/>
+            <p className="text-sm text-gray-600 pl-1">{store.address}</p>
+          </div>
         </div>
-      </div>
+      ):(
+        <div className="pb-10 space-y-2">
+          <Skeleton className="h-[10px] w-[250px]" />
+          <Skeleton className="h-[10px] w-[250px]" />
+        </div>
+      )}
+
       
       <div>
         <h2 className="text-xl font-bold leading-6 text-gray-900 pb-3">トップ</h2>
-        <p>{store.description}</p>
+        {store ? (
+          <p>{store.description}</p>
+        ):(
+          <div className="space-y-2">
+            {Array.from({ length: 5 } , (_, i) => (
+              <Skeleton key={i} className="h-[10px] w-[800px]" />
+            ))}
+          </div>
+        )}
       </div>
 
       <ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} user={user} storeId={id}/>
