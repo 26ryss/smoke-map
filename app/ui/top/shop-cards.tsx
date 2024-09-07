@@ -9,10 +9,16 @@ import { useState, useEffect } from 'react';
 import { ScrollArea } from '@mantine/core';
 import { Store } from '@/app/lib/definitions';
 import { fetchReviewScoreAndCount } from '@/app/lib/data';
+import { fetchSmokeVote } from '@/app/lib/data';
 
 type ReviewData = {
   avg: number;
   count: number;
+}
+
+type SmokeVoteData = {
+  isAbleToSmoke: number;
+  isNotAbleToSmoke: number;
 }
 
 export default function ShopCards({
@@ -23,18 +29,22 @@ export default function ShopCards({
   stores: Store[]
 }) {
   const [reviews, setReviews] = useState<Record<number, ReviewData | undefined>>({});
-  const smokeCount = 30;
-  const nonSmokeCount = 0;
+  const [smokeVotes, setSmokeVotes] = useState<Record<number, SmokeVoteData | undefined>>({});
 
   useEffect(() => {
     async function getReviews() {
       const storeReviews: Record<number, ReviewData> = {};
+      const storeSmokeVotes: Record<number, SmokeVoteData> = {};
       for (const store of stores) {
         const data = await fetchReviewScoreAndCount(store.id);
+        const smokeData = await fetchSmokeVote(store.id);
         const { avg, count } = data[0];
+        const { isAbleToSmoke, isNotAbleToSmoke } = smokeData;
         storeReviews[store.id] = { avg, count };
+        storeSmokeVotes[store.id] = { isAbleToSmoke, isNotAbleToSmoke };
       }
       setReviews(storeReviews);
+      setSmokeVotes(storeSmokeVotes);
     }
     getReviews();
   }, [stores]);
@@ -45,6 +55,7 @@ export default function ShopCards({
           <ScrollArea h={480}>
           {stores.map((store, i) =>{
             const review = reviews[store.id];
+            const smokeVote = smokeVotes[store.id];
             return (
               <Link href={`/stores/${store.id}`} key={store.id}>
                 <div
@@ -75,7 +86,7 @@ export default function ShopCards({
                       <div className="mb-1">
                         <ReviewScore reviewScore={review? review.avg: 0} reviewCount={review? review.count: 0} />
                       </div>
-                      <SmokeVote smokeCount={smokeCount} nonSmokeCount={nonSmokeCount} />
+                      <SmokeVote smokeCount={smokeVote ? smokeVote.isAbleToSmoke : 0} nonSmokeCount={smokeVote ? smokeVote.isNotAbleToSmoke : 0} />
                     </div>
                   </div>
                 </div>

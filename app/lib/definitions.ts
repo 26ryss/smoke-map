@@ -23,3 +23,8 @@ export type Store = {
   latitude: number;
   longitude: number;
 }
+
+export type SmokeVoteData = {
+  isAbleToSmoke: number;
+  isNotAbleToSmoke: number;
+}

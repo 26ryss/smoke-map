@@ -104,3 +104,31 @@ export async function createReview({
   revalidatePath(`/stores/${storeId}`);
   redirect(`/stores/${storeId}`);
 }
+
+export async function createSmokeVote({
+  uid,
+  storeId,
+  vote,
+} : {
+  uid: string;
+  storeId: number;
+  vote: boolean;
+}) {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from('votes')
+    .insert({
+      store_id: storeId,
+      user_id: uid,
+      is_able_to_smoke: vote,
+    });
+  if (error) {
+    console.error(error);
+    return { 
+      error: "レビューの投稿に失敗しました" 
+    };
+  }
+
+  revalidatePath(`/stores/${storeId}`);
+  redirect(`/stores/${storeId}`);
+}
