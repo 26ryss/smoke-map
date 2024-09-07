@@ -24,6 +24,12 @@ export type Store = {
   longitude: number;
 }
 
+export type GeoLocation = {
+  latitude: number;
+  longitude: number;
+  
+}
+
 export type VoteData = {
   isAbleToSmoke: number;
   isNotAbleToSmoke: number;

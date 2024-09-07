@@ -54,6 +54,7 @@ export async function fetchStoresPages(area: string) {
   return totalStores;
 }
 
+// areaの緯度経度を取得する
 export async function fetchGeoLocation(area: string) {
   const supabase = createClient();
   const { data, error } = await supabase
@@ -64,7 +65,7 @@ export async function fetchGeoLocation(area: string) {
     console.error('Supabase error:', error);
     throw new Error('Failed to fetch area');
   } else {
-    return data;
+    return data[0];
   }
 }
 
