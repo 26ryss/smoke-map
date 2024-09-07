@@ -34,7 +34,7 @@ export default function StorePage({
       const store = await fetchStoreById(id);
       const reviewData = await fetchReviewScoreAndCount(id);
       setStore(store);
-      setReview(reviewData[0]);
+      setReview(reviewData);
     }
     fetchData();
   }, [id]);

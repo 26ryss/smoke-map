@@ -32,21 +32,31 @@ export default async function Home({
 async function fetchReviews(stores:Store[]){
   const reviews: { [key: number]: ReviewData } = {};
 
-  for (const store of stores) {
-    const data = await fetchReviewScoreAndCount(store.id);
-    const { avg, count } = data[0];
-    reviews[store.id] = { avg, count };
-  }
+  const promises = stores.map(store => 
+    fetchReviewScoreAndCount(store.id)
+      .then(data => {
+        const { avg, count } = data;
+        reviews[store.id] = { avg, count };
+      })
+  );
+
+  await Promise.all(promises);
+
   return reviews;
 }
 
 async function fetchVotes(stores:Store[]){
   const votes: { [key: number]: VoteData} = {};
 
-  for (const store of stores) {
-    const data = await fetchSmokeVote(store.id);
-    const { isAbleToSmoke, isNotAbleToSmoke } = data;
-    votes[store.id] = { isAbleToSmoke, isNotAbleToSmoke };
-  }
+  const promises = stores.map(store =>
+    fetchSmokeVote(store.id)
+      .then(data => {
+        const { isAbleToSmoke, isNotAbleToSmoke } = data;
+        votes[store.id] = { isAbleToSmoke, isNotAbleToSmoke };
+      })
+  );
+
+  await Promise.all(promises);
+  
   return votes;
 }
