@@ -107,7 +107,7 @@ export async function fetchReviewScoreAndCount(id: number) {
     console.log('Supabase error:', error);
     throw new Error('Failed to fetch reviews');
   } else {
-    return data;
+    return data[0];
   }
 }
 
