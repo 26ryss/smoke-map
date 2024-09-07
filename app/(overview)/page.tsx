@@ -1,6 +1,6 @@
 import StoreMapView from "@/app/ui/top/store-map-view";
 import { Suspense } from "react";
-import { fetchFilteredStores, fetchStoresPages, fetchReviewScoreAndCount, fetchSmokeVote } from "@/app/lib/data";
+import { fetchFilteredStores, fetchStoresPages, fetchReviewScoreAndCount, fetchSmokeVote, fetchGeoLocation } from "@/app/lib/data";
 import { Store, VoteData, ReviewData } from "@/app/lib/definitions";
 
 export default async function Home({
@@ -18,11 +18,12 @@ export default async function Home({
 
   const reviews = await fetchReviews(stores);
   const votes = await fetchVotes(stores);
+  const areaGeoLocation = await fetchGeoLocation(area);
 
   return (
     <div>
       <Suspense>
-        <StoreMapView area={area} stores={stores} totalPages={totalPages} reviews={reviews} votes={votes} />
+        <StoreMapView area={area} stores={stores} totalPages={totalPages} reviews={reviews} votes={votes} areaGeoLocation={areaGeoLocation} />
       </Suspense>
     </div>
   );

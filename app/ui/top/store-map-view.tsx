@@ -6,7 +6,7 @@ import ShopCards from "@/app/ui/top/shop-cards";
 import Map from "@/app/ui/top/map";
 import Pagination from "@/app/ui/top/pagination";
 
-import { Store, ReviewData, VoteData } from "@/app/lib/definitions";
+import { Store, ReviewData, VoteData, GeoLocation } from "@/app/lib/definitions";
 
 export default function StoreMapView({
   area,
@@ -14,12 +14,14 @@ export default function StoreMapView({
   totalPages,
   reviews,
   votes,
+  areaGeoLocation,
 } : {
   area: string;
   stores: Store[];
   totalPages: number;
   reviews: { [key: number]: ReviewData };
   votes: { [key: number]: VoteData };
+  areaGeoLocation: GeoLocation;
 }) {
   const [hoverStoreId, setHoverStoreId] = useState<number | null>(null);
 
@@ -32,7 +34,7 @@ export default function StoreMapView({
         </div>
       </div>
       <div className="grow">
-        <Map stores={stores} hoverStoreId={hoverStoreId} area={area}/>
+        <Map stores={stores} hoverStoreId={hoverStoreId} areaGeoLocation={areaGeoLocation} />
       </div>
   </div>
   )
