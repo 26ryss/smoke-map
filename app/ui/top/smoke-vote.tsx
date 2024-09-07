@@ -1,5 +1,4 @@
 import { LuCigarette, LuCigaretteOff } from "react-icons/lu";
-import { colors } from '@/styles/colors';
 
 export default function SmokeVote({
   smokeCount,
@@ -19,7 +18,7 @@ export default function SmokeVote({
       <div className="flex flex-row items-center">
         <LuCigaretteOff size={15} className="mr-1" />
         <p className="text-sm text-gray-500 mr-2">
-          {smokeCount}
+          {nonSmokeCount}
         </p>
       </div>
     </div>

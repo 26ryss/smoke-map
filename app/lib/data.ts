@@ -126,15 +126,15 @@ export async function fetchSmokeVote(id: number) {
   } else {
     const len = data.length;
     let smokeVote = {
-      is_able_to_smoke: 0,
-      is_not_able_to_smoke: 0,
+      isAbleToSmoke: 0,
+      isNotAbleToSmoke: 0,
     };
     
     for (let i = 0; i < len; i++) {
       if (data[i].is_able_to_smoke) {
-        smokeVote.is_able_to_smoke = data[i].count;
+        smokeVote.isAbleToSmoke = data[i].count;
       } else {
-        smokeVote.is_not_able_to_smoke = data[i].count;
+        smokeVote.isNotAbleToSmoke = data[i].count;
       }
     }
     return smokeVote;
