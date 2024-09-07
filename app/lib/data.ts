@@ -110,3 +110,33 @@ export async function fetchReviewScoreAndCount(id: number) {
     return data;
   }
 }
+
+export async function fetchSmokeVote(id: number) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('votes')
+    .select(`
+      is_able_to_smoke,
+      id.count()
+      `)
+    .eq('store_id', id);
+  if (error) {
+    console.error('Supabase error:', error);
+    throw new Error('Failed to fetch smoke votes')
+  } else {
+    const len = data.length;
+    let smokeVote = {
+      is_able_to_smoke: 0,
+      is_not_able_to_smoke: 0,
+    };
+    
+    for (let i = 0; i < len; i++) {
+      if (data[i].is_able_to_smoke) {
+        smokeVote.is_able_to_smoke = data[i].count;
+      } else {
+        smokeVote.is_not_able_to_smoke = data[i].count;
+      }
+    }
+    return smokeVote;
+  }
+}

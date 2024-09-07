@@ -1,7 +1,8 @@
-import { fetchReviewScoreAndCount } from '@/app/lib/data';
+import { fetchSmokeVote } from '@/app/lib/data';
 
 export default async function Page() {
-  // const data = await fetchReviewScoreAndCount(1);
+  const data = await fetchSmokeVote(1);
+  console.log(data);
   return (
     <div>
       <h1>Page</h1>
