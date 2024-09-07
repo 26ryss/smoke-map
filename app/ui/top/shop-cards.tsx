@@ -23,8 +23,6 @@ export default function ShopCards({
   stores: Store[]
 }) {
   const [reviews, setReviews] = useState<Record<number, ReviewData | undefined>>({});
-  const reviewScore = 4.5;
-  const commentCount = 121;
   const smokeCount = 30;
   const nonSmokeCount = 0;
 
