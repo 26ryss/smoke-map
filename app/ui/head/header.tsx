@@ -29,7 +29,7 @@ export default async function Header() {
               />
             </Link>
           </div>
-          <div className="ml-10">
+          <div className="ml-10 z-10">
             <SearchBar />
           </div>
         </div>
