@@ -1,26 +1,32 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { TextInput, ActionIcon, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconSearch } from '@tabler/icons-react';
-import places from '@/app/lib/places';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
+import { isAreaExist } from '@/app/lib/data';
 
 export default function SearchBar() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace, push } = useRouter();
 
-  function handleSearch(term: string) {
-    const params = new URLSearchParams(searchParams);
-    params.set('area', term);
+  async function handleSearch(term: string) {
+    const areaExist = await isAreaExist(term);
 
-    if (pathname !== '/') {
-      push(`/?${params.toString()}`);
+    if (areaExist){
+      const params = new URLSearchParams(searchParams);
+      params.set('area', term);
+
+      if (pathname !== '/') {
+        push(`/?${params.toString()}`);
+      } else {
+        replace(`${pathname}?${params.toString()}`);
+      }
     } else {
-      replace(`${pathname}?${params.toString()}`);
+      form.setFieldError('area', 'エリア・駅が見つかりません');
     }
   }
 
@@ -37,9 +43,6 @@ export default function SearchBar() {
       area: (value) => {
         if (!value) {
           return 'エリア・駅を入力してください';
-        }
-        if (!places.find((area) => area.name === value)) {
-          return 'エリア・駅が見つかりません';
         }
         return null;
       },

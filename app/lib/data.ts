@@ -140,3 +140,17 @@ export async function fetchSmokeVote(id: number) {
     return smokeVote;
   }
 }
+
+export async function isAreaExist(area: string) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('areas')
+    .select('*')
+    .eq('name', area);
+  if (error) {
+    console.error('Supabase error:', error);
+    throw new Error('Failed to fetch area');
+  } else {
+    return data.length > 0;
+  }
+}
