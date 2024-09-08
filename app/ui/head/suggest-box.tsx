@@ -3,7 +3,7 @@
 import { IoIosClose } from "react-icons/io";
 import { useEffect, useState } from 'react';
 import { fetchFilteredArea } from "@/app/lib/data";
-import { set } from "zod";
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 export default function SuggestBox({
   query,
@@ -42,7 +42,7 @@ export default function SuggestBox({
         </button>
         {areas.map((area) => {
           return (
-            <Tag area={area} key={area}/>
+            <Tag area={area} setIsOpen={setIsOpen} key={area}/>
           )
         })}
       </div>
@@ -53,10 +53,31 @@ export default function SuggestBox({
   )
 }
 
-export function Tag({ area }:{ area: string }) {
+export function Tag({ 
+  area,
+  setIsOpen,
+ }:{ 
+  area: string
+  setIsOpen: (isOpen: boolean) => void;
+}) {
+  const { replace, push } = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const params = new URLSearchParams(searchParams);
+
+  async function handleSearch(area: string) {
+    params.set('area', area);
+    if (pathname !== '/') {
+      push(`/?${params.toString()}`);
+    } else {
+      replace(`${pathname}?${params.toString()}`);
+    }
+    setIsOpen(false);
+  }
   return (
     <button 
       className="bg-slate-200 px-3 py-1 rounded-sm hover:bg-slate-300 mx-2 my-2"
+      onClick={() => handleSearch(area)}
     >
       <p className="text-gray-900 text-xs">{area}</p>
     </button>
