@@ -35,7 +35,6 @@ export default function SearchBar() {
   const handleInputChange = useDebouncedCallback((term)=>{
     setQuery(term);
   }, 700);
-  console.log(query);
 
   const form = useForm({
     initialValues: {

@@ -154,3 +154,21 @@ export async function isAreaExist(area: string) {
     return data.length > 0;
   }
 }
+
+export async function fetchFilteredArea(query: string) {
+  if (query.length === 0) {
+    return [];
+  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('areas')
+    .select('name')
+    .ilike('name', `%${query}%`);
+  if (error) {
+    console.error('Supabase error:', error);
+    throw new Error('Failed to fetch areas');
+  } else {
+    console.log(data);
+    return data;
+  }
+}
