@@ -7,8 +7,10 @@ import { IconSearch } from '@tabler/icons-react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { isAreaExist } from '@/app/lib/data';
+import SuggestBox from './suggest-box';
 
 export default function SearchBar() {
+  const [query, setQuery] = useState('');
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace, push } = useRouter();
@@ -31,8 +33,9 @@ export default function SearchBar() {
   }
 
   const handleInputChange = useDebouncedCallback((term)=>{
-    console.log(term);
-  }, 500);
+    setQuery(term);
+  }, 700);
+  console.log(query);
 
   const form = useForm({
     initialValues: {
@@ -56,7 +59,7 @@ export default function SearchBar() {
   }, [pathname])
 
   return (
-    <div>
+    <div className="relative">
       <Suspense>
         <form onSubmit={form.onSubmit((e) => handleSearch(e.area))} className="flex flex-row">
           <TextInput
@@ -85,6 +88,9 @@ export default function SearchBar() {
             <IconSearch style={{ width: '70%', height: '70%' }} stroke={2} />
           </ActionIcon>
         </form>
+        <div className="absolute w-full">
+          <SuggestBox query={query} />
+        </div>
       </Suspense>
     </div>
   );
