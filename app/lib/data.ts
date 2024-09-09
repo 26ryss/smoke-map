@@ -172,3 +172,18 @@ export async function fetchFilteredArea(query: string) {
     return data;
   }
 }
+
+export async function fetchVoteByUserId(userId: string, storeId: number) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('votes')
+    .select('is_able_to_smoke')
+    .eq('store_id', storeId)
+    .eq('uid', userId);
+  if (error) {
+    console.error('Supabase error:', error);
+    throw new Error('Failed to fetch vote');
+  } else {
+    return data[0];
+  }
+}
