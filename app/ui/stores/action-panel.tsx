@@ -2,7 +2,6 @@
 import { MdEdit } from "react-icons/md";
 import { LuCigarette } from "react-icons/lu";
 import { type User } from '@supabase/supabase-js';
-import { VoteData } from "@/app/lib/definitions";
 
 export default function ActionPanel({
   setIsReviewModalOpen,

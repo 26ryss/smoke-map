@@ -179,11 +179,15 @@ export async function fetchVoteByUserId(userId: string, storeId: number) {
     .from('votes')
     .select('is_able_to_smoke')
     .eq('store_id', storeId)
-    .eq('uid', userId);
+    .eq('user_id', userId);
   if (error) {
     console.error('Supabase error:', error);
     throw new Error('Failed to fetch vote');
   } else {
-    return data[0];
+    if (data[0] === undefined) {
+      return undefined;
+    } else {
+      return data[0].is_able_to_smoke;
+    }
   }
 }

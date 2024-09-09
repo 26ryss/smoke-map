@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import { fetchStoreById, fetchReviewScoreAndCount } from "@/app/lib/data";
+import { fetchStoreById, fetchReviewScoreAndCount, fetchVoteByUserId } from "@/app/lib/data";
 import StorePage from "./store-page";
 
 export default async function Page({ params }: { params: { id: string }}){
@@ -13,6 +13,7 @@ export default async function Page({ params }: { params: { id: string }}){
   
   const store = await fetchStoreById(storeId);
   const review = await fetchReviewScoreAndCount(storeId);
+  const pastVote = user ? await fetchVoteByUserId(user.id, storeId) : undefined;
 
-  return <StorePage user={user} store={store} review={review} />
+  return <StorePage user={user} store={store} review={review} pastVote={pastVote}/>
 }

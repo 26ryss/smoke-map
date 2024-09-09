@@ -14,10 +14,12 @@ export default function StorePage({
   user,
   store,
   review,
+  pastVote,
 }: {
     user: User | null;
     store: Store;
     review: ReviewData;
+    pastVote: boolean | undefined;
   }){
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isSmokeVoteModalOpen, setIsSmokeVoteModalOpen] = useState(false);
@@ -43,7 +45,7 @@ export default function StorePage({
       </div>
 
       <ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} user={user} storeId={store.id}/>
-      <SmokeVoteModal isOpen={isSmokeVoteModalOpen} setIsOpen={setIsSmokeVoteModalOpen} user={user} storeId={store.id} />
+      <SmokeVoteModal isOpen={isSmokeVoteModalOpen} setIsOpen={setIsSmokeVoteModalOpen} user={user} storeId={store.id} pastVote={pastVote}/>
     </div>
   )
 }

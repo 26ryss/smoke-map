@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { createSmokeVote } from "@/app/lib/actions";
+import { createSmokeVote, updateSmokeVote } from "@/app/lib/actions";
 
 
 const FormSchema = z.object({
@@ -29,11 +29,13 @@ export default function SmokeVoteModal({
   setIsOpen,
   user,
   storeId,
+  pastVote,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   user: User | null;
   storeId: number;
+  pastVote: boolean | undefined;
 }) {
   return(
   <>
@@ -46,7 +48,7 @@ export default function SmokeVoteModal({
           >
             <IoIosClose size={30}/>
           </button>
-          <ReviewForm setIsOpen={setIsOpen} user={user} storeId={storeId} />
+          <ReviewForm setIsOpen={setIsOpen} user={user} storeId={storeId} pastVote={pastVote}/>
         </div>
       </div>
     ) : (
@@ -61,33 +63,41 @@ export function ReviewForm({
   setIsOpen,
   user,
   storeId,
+  pastVote,
   } : {
     setIsOpen: (isOpen: boolean) => void;
     user: User | null;
     storeId: number;
+    pastVote: boolean | undefined;
   }) {
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      vote: undefined,
+      vote: pastVote,
     }
   })
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
-    if (!user){
+    if (!user) {
       return;
     }
 
-    const { error } = await createSmokeVote({
-      uid: user.id, 
-      storeId: storeId,
-      vote: values.vote,
-    }) || {};
+    const voteAction = pastVote === undefined ? createSmokeVote : updateSmokeVote;
+
+    const { error } =
+      (await voteAction({
+        uid: user.id,
+        storeId: storeId,
+        vote: values.vote,
+      })) || {};
 
     if (!error) {
       setIsOpen(false);
     }
   }
+
+  const wordOnButton = pastVote === undefined ? "投票" : "更新";
 
   return (
     <Form {...form}>
@@ -99,6 +109,7 @@ export function ReviewForm({
             <FormItem className="space-y-3">
               <FormControl>
                 <RadioGroup
+                  value={field.value?.toString()}
                   onValueChange={(value) => field.onChange(value === 'true')}
                   className="flex flex-col space-y-1"
                 >
@@ -124,7 +135,7 @@ export function ReviewForm({
             </FormItem>
           )}
         />
-        <Button type="submit" >投票</Button>
+        <Button type="submit" >{wordOnButton}</Button>
       </form>
     </Form>
   )
