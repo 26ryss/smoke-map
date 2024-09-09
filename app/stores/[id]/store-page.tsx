@@ -8,18 +8,20 @@ import { useState } from 'react';
 import { type User } from '@supabase/supabase-js';
 import ReviewModal from "@/app/ui/stores/review-modal";
 import SmokeVoteModal from "@/app/ui/stores/smoke-vote-modal";
-import { Store, ReviewData } from "@/app/lib/definitions";
+import { Store, ReviewData, Review } from "@/app/lib/definitions";
 
 export default function StorePage({ 
   user,
   store,
   review,
   pastVote,
+  pastReview,
 }: {
     user: User | null;
     store: Store;
     review: ReviewData;
     pastVote: boolean | undefined;
+    pastReview: Review | undefined;
   }){
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isSmokeVoteModalOpen, setIsSmokeVoteModalOpen] = useState(false);
@@ -44,7 +46,7 @@ export default function StorePage({
           <p>{store.description}</p>
       </div>
 
-      <ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} user={user} storeId={store.id}/>
+      <ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} user={user} storeId={store.id} pastReview={pastReview}/>
       <SmokeVoteModal isOpen={isSmokeVoteModalOpen} setIsOpen={setIsSmokeVoteModalOpen} user={user} storeId={store.id} pastVote={pastVote}/>
     </div>
   )

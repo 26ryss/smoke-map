@@ -39,3 +39,11 @@ export type ReviewData = {
   avg: number;
   count: number;
 }
+
+export type Review = {
+  id: string;
+  store_id: number;
+  uid: string;
+  score: number;
+  comment: string;
+}

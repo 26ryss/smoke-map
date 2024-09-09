@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
-import { createReview } from "@/app/lib/actions";
+import { createReview, updateReview } from "@/app/lib/actions";
+import { Review } from "@/app/lib/definitions";
 
 
 const reviewSchema = z.object({
@@ -39,11 +39,13 @@ export default function ReviewModal({
   setIsOpen,
   user,
   storeId,
+  pastReview
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   user: User | null;
   storeId: number;
+  pastReview: Review | undefined;
 }) {
   return(
   <>
@@ -56,7 +58,7 @@ export default function ReviewModal({
           >
             <IoIosClose size={30}/>
           </button>
-          <ReviewForm setIsOpen={setIsOpen} user={user} storeId={storeId} />
+          <ReviewForm setIsOpen={setIsOpen} user={user} storeId={storeId} pastReview={pastReview} />
         </div>
         
       </div>
@@ -72,16 +74,18 @@ export function ReviewForm({
   setIsOpen,
   user,
   storeId,
+  pastReview,
   } : {
     setIsOpen: (isOpen: boolean) => void;
     user: User | null;
     storeId: number;
+    pastReview: Review | undefined;
   }) {
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
-      score: undefined,
-      comment: undefined,
+      score: pastReview? pastReview.score : undefined,
+      comment: pastReview? pastReview.comment : "",
     }
   })
 
@@ -92,7 +96,9 @@ export function ReviewForm({
     if (values.comment === ""){
       values.comment = undefined;
     }
-    const { error } = await createReview({
+    const reviewAction = pastReview === undefined ? createReview : updateReview;
+
+    const { error } = await reviewAction({
       uid: user.id, 
       storeId: storeId,
       score: values.score,
@@ -103,6 +109,8 @@ export function ReviewForm({
       setIsOpen(false);
     }
   }
+
+  const wordOnButton = pastReview === undefined ? "投稿" : "更新";
 
   return (
     <Form {...form}>
@@ -136,7 +144,7 @@ export function ReviewForm({
             </FormItem>
           )}
         />
-        <Button type="submit" >投稿</Button>
+        <Button type="submit" >{wordOnButton}</Button>
       </form>
     </Form>
   )

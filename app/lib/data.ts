@@ -191,3 +191,18 @@ export async function fetchVoteByUserId(userId: string, storeId: number) {
     }
   }
 }
+
+export async function fetchReviewByUserId(userId: string, storeId: number) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('reviews')
+    .select('*')
+    .eq('store_id', storeId)
+    .eq('user_id', userId);
+  if (error) {
+    console.error('Supabase error:', error);
+    throw new Error('Failed to fetch review');
+  } else {
+    return data[0];
+  }
+}
