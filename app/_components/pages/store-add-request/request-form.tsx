@@ -18,14 +18,17 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { createStoreAddRequest } from "@/app/lib/actions"
-import { create } from "domain"
 
 const FormSchema = z.object({
   name: z.string({
     required_error: "店名を入力してください",
+  }).min(1, {
+    message: "店名を入力してください",
   }),
   address: z.string({
     required_error: "住所を入力してください",
+  }).min(1, {
+    message: "住所を入力してください",
   }),
   url: z.string().optional(),
 })
@@ -44,8 +47,8 @@ export function RequestForm({ user } : { user : User | null }) {
       if (!user) {
         return
       }
-      const { name, address, url } = data;
-      const { error } = await createStoreAddRequest({
+      const { name, address, url } = data
+      await createStoreAddRequest({
         uid: user.id,
         name: name,
         address: address,

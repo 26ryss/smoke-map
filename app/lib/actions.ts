@@ -218,5 +218,5 @@ export async function createStoreAddRequest({
       error: "店舗追加申請に失敗しました" 
     };
   }
-  return redirect('/account/store-add-request/success');
+  redirect('/account/store-add-request/success');
 }
