@@ -1,9 +1,7 @@
 "use client";
 
 import { Button } from '@/app/ui/button';
-import { useState } from 'react';
 import { signUpAction } from '@/app/lib/actions';
-import { createClient } from '@/utils/supabase/server';
 
 export default function Form(){
   return (
