@@ -190,3 +190,33 @@ export async function updateReview({
   revalidatePath(`/stores/${storeId}`);
   redirect(`/stores/${storeId}`);
 }
+
+export async function createStoreAddRequest({
+  uid,
+  name,
+  address,
+  url,
+}:{
+  uid: string;
+  name: string;
+  address: string;
+  url: string | undefined;
+}) {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from('store_add_requests')
+    .insert({
+      user_id: uid,
+      name: name,
+      address: address,
+      url: url ?? null,
+      status: 'pending',
+    });
+  if (error) {
+    console.error(error);
+    return { 
+      error: "店舗追加申請に失敗しました" 
+    };
+  }
+  return redirect('/account/store-add-request/success');
+}
