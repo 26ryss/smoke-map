@@ -5,8 +5,6 @@ import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 
-import Header from "@/app/ui/head/header";
-
 const notoSansJP = Noto_Sans_JP({ subsets: [ 'latin'] });
 
 export const metadata: Metadata = {
@@ -26,9 +24,6 @@ export default function RootLayout({
       </head>
       <body className={notoSansJP.className}>
         <MantineProvider>
-          <Suspense>
-            <Header />
-          </Suspense>
           {children}
         </MantineProvider>
       </body>
