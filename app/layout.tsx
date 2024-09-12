@@ -6,6 +6,7 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 
 import Header from "@/app/_components/organisms/projects/header";
+import Footer from "@/app/_components/organisms/projects/footer";
 
 const notoSansJP = Noto_Sans_JP({ subsets: [ 'latin'] });
 
@@ -29,7 +30,12 @@ export default function RootLayout({
           <Suspense>
             <Header />
           </Suspense>
-          {children}
+          <div>
+            {children}
+          </div>
+          <Suspense>
+            <Footer />
+          </Suspense>
         </MantineProvider>
       </body>
     </html>
