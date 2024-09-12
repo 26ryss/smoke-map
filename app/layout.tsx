@@ -5,7 +5,7 @@ import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 
-import Header from "@/app/_components/organisms/pages/head/header";
+import Header from "@/app/_components/organisms/projects/header";
 
 const notoSansJP = Noto_Sans_JP({ subsets: [ 'latin'] });
 
