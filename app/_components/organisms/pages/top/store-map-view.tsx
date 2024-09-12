@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
-import ShopCards from "@/app/ui/top/shop-cards";
-import Map from "@/app/ui/top/map";
-import Pagination from "@/app/ui/top/pagination";
+import ShopCards from "@/app/_components/organisms/pages/top/shop-cards";
+import Map from "@/app/_components/organisms/pages/top/map";
+import Pagination from "@/app/_components/organisms/pages/top/pagination";
 
 import { Store, ReviewData, VoteData, GeoLocation } from "@/app/lib/definitions";
 

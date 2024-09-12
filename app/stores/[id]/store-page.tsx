@@ -1,13 +1,13 @@
 'use client';
 
-import ReviewScore from "@/app/ui/top/review-score";
+import ReviewScore from "@/app/_components/organisms/pages/top/review-score";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { colors } from "@/styles/colors";
-import ActionPanel from "@/app/ui/stores/action-panel";
+import ActionPanel from "@/app/_components/organisms/pages/stores/action-panel";
 import { useState } from 'react';
 import { type User } from '@supabase/supabase-js';
-import ReviewModal from "@/app/ui/stores/review-modal";
-import SmokeVoteModal from "@/app/ui/stores/smoke-vote-modal";
+import ReviewModal from "@/app/_components/organisms/pages/stores/review-modal";
+import SmokeVoteModal from "@/app/_components/organisms/pages/stores/smoke-vote-modal";
 import { Store, ReviewData, Review } from "@/app/lib/definitions";
 
 export default function StorePage({ 

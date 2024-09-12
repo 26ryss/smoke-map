@@ -1,4 +1,4 @@
-import Form from '@/app/ui/users/signup-form';
+import Form from '@/app/_components/organisms/projects/signup-form';
 
 export default function Page() {
   return (

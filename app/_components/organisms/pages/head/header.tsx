@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import SearchBar from '@/app/ui/head/search-bar';
+import SearchBar from '@/app/_components/organisms/pages/head/search-bar';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/server';
 import { signOutAction } from '@/app/lib/actions';

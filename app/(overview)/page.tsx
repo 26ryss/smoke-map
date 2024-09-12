@@ -1,4 +1,4 @@
-import StoreMapView from "@/app/ui/top/store-map-view";
+import StoreMapView from "@/app/_components/organisms/pages/top/store-map-view";
 import { Suspense } from "react";
 import { fetchFilteredStores, fetchStoresPages, fetchReviewScoreAndCount, fetchSmokeVote, fetchGeoLocation } from "@/app/lib/data";
 import { Store, VoteData, ReviewData } from "@/app/lib/definitions";
