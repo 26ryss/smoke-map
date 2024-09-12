@@ -14,9 +14,9 @@ export default function Page() {
         </div>
         <p className="text-gray-900 pb-2">マップに掲載されていない喫煙可能なカフェを見つけた際には、店舗追加申請をぜひともよろしくお願いします！
         </p>
-        <Link href="/account/store-add-request" className="text-blue-500 hover:text-blue-800">
-          店舗の追加申請を行う
-        </Link>
+        <div className="h-screen">
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8YmSv4bJMXJBRe22J2Irglitg_AvdTAOSWKNrC5iJWKzbsQ/viewform?embedded=true" width="100%" height="100%">Loading…</iframe>
+        </div>
       </div>
     </div>
   );
