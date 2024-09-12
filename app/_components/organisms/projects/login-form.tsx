@@ -1,4 +1,4 @@
-import { Button } from '@/app/ui/button';
+import { Button } from '@/app/_components/ui-parts/button';
 import { signInAction } from '@/app/lib/actions';
 
 export default function Form(){
