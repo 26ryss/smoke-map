@@ -14,7 +14,7 @@ export default async function Header() {
   const accountUrl = user ? `/account/${user.id}` : '/login';
 
   return (
-    <header className="text-white border-b-2 border-slate-100 md:w-[1000px] md:mx-auto">
+    <header className="text-white md:w-[1000px] md:mx-auto">
       <nav aria-label="Global" className="flex flex-row items-center py-1 px-2 md:py-3 justify-between">
         {/* logo */}
         <div className="flex flex-row items-center">

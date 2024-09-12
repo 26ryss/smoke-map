@@ -25,14 +25,15 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className={notoSansJP.className}>
+      <body className={`flex flex-col min-h-screen ${notoSansJP.className}`}>
         <MantineProvider>
           <Suspense>
             <Header />
           </Suspense>
-          <div>
+          <div className="border-b-2 border-slate-100"></div>
+          <main className='flex-grow'>
             {children}
-          </div>
+          </main>
           <Suspense>
             <Footer />
           </Suspense>
