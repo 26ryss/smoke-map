@@ -1,15 +1,14 @@
-"use client";
-
-import { Button } from '@/app/ui/button';
-import { signUpAction } from '@/app/lib/actions';
+import { Button } from '@/app/_components/ui-parts/button';
+import { signInAction } from '@/app/lib/actions';
 
 export default function Form(){
   return (
-    <form action={signUpAction}>
+    <form action={signInAction}>
       <div className="bg-gray-50 p-4 md:px-16 md:py-8">
         <div className="mb-4">
-          <h1 className="flex text-xl font-bold justify-center">新規登録</h1>
+          <h1 className="flex text-xl font-bold justify-center">ログイン</h1>
         </div>
+
         {/* メールアドレス */}
         <div className="mb-3">
           <label htmlFor="email" className="mb-2 block text-sm font-medium">
@@ -20,6 +19,7 @@ export default function Form(){
               id="email"
               name="email"
               className="peer block w-full border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+              type="email"
               defaultValue=""
             />
           </div>
@@ -41,7 +41,7 @@ export default function Form(){
           </div>
         </div>
         <div className="mt-6 flex justify-center gap-4">
-          <Button type="submit">新規登録</Button>
+          <Button type="submit">ログイン</Button>
         </div>
       </div>
     </form>

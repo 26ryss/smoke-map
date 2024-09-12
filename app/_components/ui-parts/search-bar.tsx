@@ -7,7 +7,7 @@ import { IconSearch } from '@tabler/icons-react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { isAreaExist } from '@/app/lib/data';
-import SuggestBox from './suggest-box';
+import SuggestBox from '@/app/_components/ui-parts/suggest-box';
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');

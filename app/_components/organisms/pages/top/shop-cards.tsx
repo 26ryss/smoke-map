@@ -2,8 +2,8 @@
 
 import clsx from 'clsx';
 import Image from 'next/image';
-import ReviewScore from "@/app/ui/top/review-score";
-import SmokeVote from "@/app/ui/top/smoke-vote";
+import ReviewScore from "@/app/_components/organisms/pages/top/review-score";
+import SmokeVote from "@/app/_components/organisms/pages/top/smoke-vote";
 import Link from 'next/link';
 import { ScrollArea } from '@mantine/core';
 import { Store, VoteData, ReviewData } from '@/app/lib/definitions';

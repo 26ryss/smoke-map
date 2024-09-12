@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import Title from "@/app/_components/ui-parts/title";
-import { RequestForm } from "@/app/_components/pages/store-add-request/request-form";
+import { RequestForm } from "@/app/_components/organisms/pages/store-add-request/request-form";
 
 export default async function Page() {
   const supabase = createClient();
