@@ -9,8 +9,9 @@ import { type User } from '@supabase/supabase-js';
 import ReviewModal from "@/app/_components/organisms/pages/stores/review-modal";
 import SmokeVoteModal from "@/app/_components/organisms/pages/stores/smoke-vote-modal";
 import { Store, ReviewData, Review } from "@/app/lib/definitions";
+import { Search } from "lucide-react";
 
-export default function StorePage({ 
+export default function Template({ 
   user,
   store,
   review,
@@ -27,9 +28,9 @@ export default function StorePage({
   const [isSmokeVoteModalOpen, setIsSmokeVoteModalOpen] = useState(false);
 
   return (
-    <div className="py-10 px-36">
+    <div className="w-full h-full">
       <div className="flex flex-row justify-between">
-          <h1 className="text-3xl font-bold leading-6 text-gray-900 pb-3">{store.name}</h1>
+          <h1 className="text-lg md:text-3xl font-bold leading-6 text-gray-900 pb-3">{store.name}</h1>
         <ActionPanel setIsReviewModalOpen={setIsReviewModalOpen} setIsSmokeVoteModalOpen={setIsSmokeVoteModalOpen} user={user} />
       </div>
       
