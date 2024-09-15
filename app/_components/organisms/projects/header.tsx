@@ -61,15 +61,24 @@ export default async function Header() {
           </>
         ) : (
           <div className="flex items-center">
-            <Link href={accountUrl} className="text-sm font-semibold leading-6 text-gray-900 px-4">
-              マイページ
-            </Link>
-            <form action={signOutAction}>
-              <button className="text-sm font-semibold leading-6 text-gray-900 px-4">
-                ログアウト
-              </button>
-            </form>
-        </div>
+            <div className="hidden md:flex">
+              <Link href={accountUrl} className="text-sm font-semibold leading-6 text-gray-900 px-4">
+                マイページ
+              </Link>
+              <form action={signOutAction}>
+                <button className="text-sm font-semibold leading-6 text-gray-900 px-4">
+                  ログアウト
+                </button>
+              </form>
+            </div>
+            <div className='md:hidden text-gray-900 text-xs flex flex-col justify-center items-center'>
+              <UserIcon className='w-5'/>
+              <Link href={accountUrl}>
+                マイページ
+              </Link>
+            </div>
+          </div>
+          
         )}
       </nav>
     </header>
