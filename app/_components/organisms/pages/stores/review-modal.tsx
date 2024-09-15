@@ -51,7 +51,7 @@ export default function ReviewModal({
   <>
     {isOpen ? (
       <div className="fixed top-0 left-0 w-full h-full z-50 bg-modal-background flex justify-center items-center">
-        <div className="bg-white p-16 rounded relative">
+        <div className="bg-white p-8 md:p-16 rounded relative">
           <button 
             className="absolute top-2 right-2 text-gray-600"
             onClick={() => setIsOpen(false)}
@@ -138,7 +138,7 @@ export function ReviewForm({
             <FormItem>
               <FormLabel>レビュー</FormLabel>
               <FormControl>
-                <Textarea placeholder="口コミ本文を記入してください" {...field} className="w-96"/>
+                <Textarea placeholder="口コミ本文を記入してください" {...field} className="md:w-96"/>
               </FormControl>
               <FormMessage />
             </FormItem>
