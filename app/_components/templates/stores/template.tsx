@@ -29,9 +29,11 @@ export default function Template({
 
   return (
     <div className="w-full h-full">
-      <div className="flex flex-row justify-between">
-          <h1 className="text-lg md:text-3xl font-bold leading-6 text-gray-900 pb-3">{store.name}</h1>
-        <ActionPanel setIsReviewModalOpen={setIsReviewModalOpen} setIsSmokeVoteModalOpen={setIsSmokeVoteModalOpen} user={user} />
+      <div className="mb-4 md:flex flex-row justify-between md:mb-0">
+        <h1 className="text-lg md:text-3xl font-bold leading-6 text-gray-900 pb-3">{store.name}</h1>
+        <div className="h-full">
+          <ActionPanel setIsReviewModalOpen={setIsReviewModalOpen} setIsSmokeVoteModalOpen={setIsSmokeVoteModalOpen} user={user} />
+        </div>
       </div>
       
       <div className="pb-10">
@@ -43,8 +45,8 @@ export default function Template({
       </div>
 
       <div>
-        <h2 className="text-xl font-bold leading-6 text-gray-900 pb-3">トップ</h2>
-          <p>{store.description}</p>
+        <h2 className="text-md md:text-xl font-bold leading-6 text-gray-900 pb-3">トップ</h2>
+          <p className="text-sm md:text-md">{store.description}</p>
       </div>
 
       <ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} user={user} storeId={store.id} pastReview={pastReview}/>

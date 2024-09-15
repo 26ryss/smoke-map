@@ -16,7 +16,6 @@ export default function SearchBar() {
 
   async function handleSearch(term: string) {
     const areaExist = await isAreaExist(term);
-
     if (areaExist){
       const url = `/search/${term}`;
       push(url);
