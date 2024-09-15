@@ -13,7 +13,7 @@ export default function ActionPanel({
   user: User | null;
 }) {
   return (
-    <div className="flex">
+    <div className="flex h-full">
       <SmokeVoteButton setIsOpen={setIsSmokeVoteModalOpen} user={user}/>
       <div className="ml-2"/>
       <CreateReviewButton setIsOpen={setIsReviewModalOpen} user={user}/>
@@ -30,7 +30,7 @@ export function CreateReviewButton({
 }) {
   return (
     <button 
-      className="flex items-center bg-white border border-gray-900 px-3 py-1 rounded space-x-3 hover:bg-gray-100"
+      className="flex items-center bg-white border border-gray-900 px-3 py-1 rounded space-x-3 hover:bg-gray-100 h-full"
       onClick={() => {
         if (user) {
           setIsOpen(true)
@@ -54,7 +54,7 @@ export function SmokeVoteButton({
 }) {
   return (
     <button 
-      className="flex items-center bg-white border border-gray-900 px-3 py-1 rounded space-x-4 hover:bg-gray-100"
+      className="flex items-center bg-white border border-gray-900 px-3 py-1 rounded space-x-4 hover:bg-gray-100 h-full"
       onClick={() => {
         if (user){
           setIsOpen(true);

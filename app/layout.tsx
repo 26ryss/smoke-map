@@ -6,6 +6,7 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 
 import Header from "@/app/_components/organisms/projects/header";
+import Footer from "@/app/_components/organisms/projects/footer";
 
 const notoSansJP = Noto_Sans_JP({ subsets: [ 'latin'] });
 
@@ -24,12 +25,18 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className={notoSansJP.className}>
+      <body className={`flex flex-col min-h-screen ${notoSansJP.className}`}>
         <MantineProvider>
           <Suspense>
             <Header />
           </Suspense>
-          {children}
+          <div className="border-b-2 border-slate-100"></div>
+          <main className='flex-grow'>
+            {children}
+          </main>
+          <Suspense>
+            <Footer />
+          </Suspense>
         </MantineProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { fetchStoreById, fetchReviewScoreAndCount, fetchVoteByUserId, fetchReviewByUserId } from "@/app/lib/data";
-import StorePage from "./store-page";
+import Template from "../../_components/templates/stores/template";
 
 export default async function Page({ params }: { params: { id: string }}){
   const supabase = createClient();
@@ -16,5 +16,7 @@ export default async function Page({ params }: { params: { id: string }}){
   const pastVote = user ? await fetchVoteByUserId(user.id, storeId) : undefined;
   const pastReview = user ? await fetchReviewByUserId(user.id, storeId) : undefined;
 
-  return <StorePage user={user} store={store} review={review} pastVote={pastVote} pastReview={pastReview} />
+  return (
+    <Template user={user} store={store} review={review} pastVote={pastVote} pastReview={pastReview} />
+  )
 }

@@ -6,9 +6,9 @@ import { signUpAction } from '@/app/lib/actions';
 export default function Form(){
   return (
     <form action={signUpAction}>
-      <div className="bg-gray-50 p-4 md:px-16 md:py-8">
+      <div className="md:bg-gray-50 p-4 md:px-16 md:py-8">
         <div className="mb-4">
-          <h1 className="flex text-xl font-bold justify-center">新規登録</h1>
+          <h1 className="flex md:text-xl font-bold justify-center">新規登録</h1>
         </div>
         {/* メールアドレス */}
         <div className="mb-3">

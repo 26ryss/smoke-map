@@ -4,9 +4,9 @@ import { signInAction } from '@/app/lib/actions';
 export default function Form(){
   return (
     <form action={signInAction}>
-      <div className="bg-gray-50 p-4 md:px-16 md:py-8">
+      <div className="md:bg-gray-50 p-4 md:px-16 md:py-8">
         <div className="mb-4">
-          <h1 className="flex text-xl font-bold justify-center">ログイン</h1>
+          <h1 className="flex md:text-xl font-bold justify-center">ログイン</h1>
         </div>
 
         {/* メールアドレス */}
