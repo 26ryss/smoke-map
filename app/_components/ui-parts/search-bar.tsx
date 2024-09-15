@@ -11,7 +11,6 @@ import SuggestBox from '@/app/_components/ui-parts/suggest-box';
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const { push } = useRouter();
 
