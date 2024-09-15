@@ -1,6 +1,5 @@
 import Title from "@/app/_components/ui-parts/title";
 import SubTitle from "@/app/_components/ui-parts/sub-title";
-import Link from 'next/link';
 
 export default function Page() {
   return (
