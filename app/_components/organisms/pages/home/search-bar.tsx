@@ -4,6 +4,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { useRouter } from 'next/navigation'
 
 import {
   Form,
@@ -18,6 +19,7 @@ import { Input } from "@/app/_components/ui-parts/input"
 import { Button } from "@/app/_components/ui-parts/button"
 
 export default function SearchBar() {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,7 +28,8 @@ export default function SearchBar() {
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    const url = `/search/${data.area}`
+    router.push(url)
   }
 
   return (

@@ -26,14 +26,14 @@ export default function StoreMapView({
   const [hoverStoreId, setHoverStoreId] = useState<number | null>(null);
 
   return(
-    <div className="flex flex-row mx-14 my-8 z-0">
-      <div className="w-[400px]">
+    <div className="flex flex-row my-8 z-0 justify-center">
+      <div className="w-full md:w-[400px]">
         <ShopCards setHoverStoreId={setHoverStoreId} stores={stores} reviews={reviews} votes={votes}/>
         <div className="mt-5 flex w-full justify-center">
           <Pagination totalPages={totalPages} />
         </div>
       </div>
-      <div className="grow z-0">
+      <div className="grow z-0 hidden md:block">
         <Map stores={stores} hoverStoreId={hoverStoreId} areaGeoLocation={areaGeoLocation} />
       </div>
   </div>

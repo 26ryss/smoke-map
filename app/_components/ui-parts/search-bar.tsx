@@ -13,20 +13,14 @@ export default function SearchBar() {
   const [query, setQuery] = useState('');
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace, push } = useRouter();
+  const { push } = useRouter();
 
   async function handleSearch(term: string) {
     const areaExist = await isAreaExist(term);
 
     if (areaExist){
-      const params = new URLSearchParams(searchParams);
-      params.set('area', term);
-
-      if (pathname !== '/') {
-        push(`/?${params.toString()}`);
-      } else {
-        replace(`${pathname}?${params.toString()}`);
-      }
+      const url = `/search/${term}`;
+      push(url);
     } else {
       form.setFieldError('area', 'エリア・駅が見つかりません');
     }
