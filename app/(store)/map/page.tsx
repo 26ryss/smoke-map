@@ -23,7 +23,14 @@ export default async function Home({
   return (
     <div>
       <Suspense>
-        <StoreMapView area={area} stores={stores} totalPages={totalPages} reviews={reviews} votes={votes} areaGeoLocation={areaGeoLocation} />
+        <StoreMapView 
+          area={area} 
+          stores={stores} 
+          totalPages={totalPages} 
+          reviews={reviews} 
+          votes={votes} 
+          areaGeoLocation={areaGeoLocation} 
+        />
       </Suspense>
     </div>
   );
