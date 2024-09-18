@@ -2,7 +2,7 @@
 
 import { createClient } from '@/utils/supabase/server';
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 10;
 export async function fetchFilteredStores (
   area: string,
   currentPage: number,
