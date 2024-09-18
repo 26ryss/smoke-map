@@ -168,7 +168,19 @@ export async function fetchFilteredArea(query: string) {
     console.error('Supabase error:', error);
     throw new Error('Failed to fetch areas');
   } else {
-    console.log(data);
+    return data;
+  }
+}
+
+export async function fetchAllAreas(){
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('areas')
+    .select('name');
+  if (error) {
+    console.error('Supabase error:', error);
+    throw new Error('Failed to fetch areas');
+  } else {
     return data;
   }
 }
