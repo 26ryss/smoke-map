@@ -9,7 +9,9 @@ export default async function AreaSection() {
       <div className="w-full h-full flex justify-center">
         <h2 className="text-2xl font-bold mb-10">エリアから見つける</h2>
       </div>
-      <AreaRow prefecture="東京都" areas={areas} />
+      <div className="px-4 md:px-0">
+        <AreaRow prefecture="東京都" areas={areas} />
+      </div>
     </>
   )
 }
