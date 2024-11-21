@@ -30,7 +30,7 @@ app/_components以下で管理
 
 ## Demo
 ### Top Page
-![](image/top_pc.png)
+<img src="/image/top_pc.png" width="500">
 
 ## Map View
 <video src="/image/map.mov" width="600"></video>
