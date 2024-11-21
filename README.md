@@ -37,13 +37,13 @@ app/_components以下で管理
 ![ER図](./public/smoke-map-er.png)
 
 ## Demo
-※ Currently, we only have 渋谷 and 新宿 for area.
+※ Currently, we only have 渋谷 and 新宿 for area.  
 ### Top Page
 <img src="/image/top_pc.png" width="600">
 
 ### Map View
 <video width="640" height="360" controls>
-  <source src="/image/map.mov" type="video/quicktime">
+  <source src="/image/map.mp4" type="video/mp4">
 </video>
 
 ### Search
@@ -51,5 +51,5 @@ app/_components以下で管理
 
 ### Review and Vote
 Once you login, you can vote and write reviews
-<img src="/image/review.png" width="600">
-<img src="/image/vote.png" width="600">
+<img src="/image/review.png" width="400">
+<img src="/image/vote.png" width="400">
