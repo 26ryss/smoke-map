@@ -27,3 +27,10 @@ app/_components以下で管理
 
 ## ER図
 ![ER図](./public/smoke-map-er.png)
+
+## Demo
+### Top Page
+![](image/top_pc.png)
+
+## Map View
+<video src="/image/map.mov" width="600"></video>
