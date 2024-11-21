@@ -42,10 +42,10 @@ app/_components以下で管理
 <img src="/image/top_pc.png" width="600">
 
 ### Map View
-<div>
-<video controls src="/image/map.mp4">
-</video>
-</div>
+
+https://github.com/user-attachments/assets/06bc40e0-d04b-47c4-ad05-2a9dea270f83
+
+
 
 ### Search
 <img src="/image/search.png" width="600">
