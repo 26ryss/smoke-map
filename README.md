@@ -19,6 +19,14 @@ pnpm run dev
 
 [http://localhost:3000](http://localhost:3000) をブラウザ上で開くとアプリを確認できる
 
+## 使用技術
+- Framework: Next.js
+- Library: React
+- BaaS: Supabase
+- UI Library: shadcn/ui
+- CSS Framework: tailwindcss
+- Other: Google Map API
+
 ## デザインに関するディレクトリ構成
 app/_components以下で管理
 - /ui-parts: atomsとmoleculesを統合した概念で、汎用的なパーツを管理
@@ -29,8 +37,19 @@ app/_components以下で管理
 ![ER図](./public/smoke-map-er.png)
 
 ## Demo
+※ Currently, we only have 渋谷 and 新宿 for area.
 ### Top Page
-<img src="/image/top_pc.png" width="500">
+<img src="/image/top_pc.png" width="600">
 
-## Map View
-<video src="/image/map.mov" width="600"></video>
+### Map View
+<video width="640" height="360" controls>
+  <source src="/image/map.mov" type="video/quicktime">
+</video>
+
+### Search
+<img src="/image/search.png" width="600">
+
+### Review and Vote
+Once you login, you can vote and write reviews
+<img src="/image/review.png" width="600">
+<img src="/image/vote.png" width="600">
