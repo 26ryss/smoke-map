@@ -42,14 +42,17 @@ app/_components以下で管理
 <img src="/image/top_pc.png" width="600">
 
 ### Map View
-<video width="640" height="360" controls>
-  <source src="/image/map.mp4" type="video/mp4">
+<div>
+<video controls src="/image/map.mp4">
 </video>
+</div>
 
 ### Search
 <img src="/image/search.png" width="600">
 
 ### Review and Vote
-Once you login, you can vote and write reviews
-<img src="/image/review.png" width="400">
+Once you login, you can vote and write reviews  
+
+<img src="/image/review.png" width="400">  
+
 <img src="/image/vote.png" width="400">
